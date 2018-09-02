@@ -8,11 +8,15 @@ class dbtemps:
 #        print('init')
         self.conn = self.create_conn()
         self.cur = self.conn.cursor()
+        pc = ''
 
     def create_conn(self):
 #        print('create_conn')
+        from socket import gethostname
+
+        self.pc = gethostname() 
         config = {
-            'user': 'pi0a',
+            'user': self.pc,
             'password': '37Sunset',
             'host': 'kermit',
             'db': 'temps',
@@ -31,11 +35,22 @@ class dbtemps:
                 print(err)
             return
         else:
-            print('CONNECTED!!!')
+#            print('CONNECTED!!!')
             return cnx
+
+    def get_unit_id(self):
+        sql= """SELECT unit, idunit FROM temps.units WHERE unit='{}';""".format(self.pc)
+        print(sql)
+        units = {}
+#        print(self.cur.execute(sql))
+        self.cur.execute(sql)
+        units = self.cur.fetchall()
+        print(type(units))
+        print(units[self.pc][1])
 
     def write_temp(self, h, t):
 #        print('writing')
+        print(self.get_unit_id())
         try:
             sql= """INSERT INTO temps (idloc, temp, humidity, time, idunit, iddev) VALUES('{}', '{}', '{}', '{}', '7', '2');""".format(13, t, h, datetime.datetime.now())
             print(sql)
