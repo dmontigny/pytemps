@@ -25,4 +25,5 @@ while True:
 #        print("Humidity: %d %%" % result.humidity)
         writeHT.write_temp(result.humidity, result.temperature)
 
-    time.sleep(1)
+    exit()
+#    time.sleep(1)
