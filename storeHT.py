@@ -9,6 +9,7 @@ class dbtemps:
         self.conn = self.create_conn()
         self.cur = self.conn.cursor()
         pc = ''
+        unitid = ''
 
     def create_conn(self):
 #        print('create_conn')
@@ -44,15 +45,13 @@ class dbtemps:
         units = {}
 #        print(self.cur.execute(sql))
         self.cur.execute(sql)
-        units = self.cur.fetchall()
-        print(type(units))
-        print(units[self.pc][1])
+        return self.cur.fetchall()[0][1]
 
     def write_temp(self, h, t):
 #        print('writing')
         print(self.get_unit_id())
         try:
-            sql= """INSERT INTO temps (idloc, temp, humidity, time, idunit, iddev) VALUES('{}', '{}', '{}', '{}', '7', '2');""".format(13, t, h, datetime.datetime.now())
+            sql= """INSERT INTO temps (idloc, temp, humidity, time, idunit, iddev) VALUES('{}', '{}', '{}', '{}', '{}', '2');""".format(13, t, h, datetime.datetime.now(), self.get_unit_id())
             print(sql)
             self.cur.execute(sql)
             self.conn.commit()
