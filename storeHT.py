@@ -3,7 +3,7 @@ from mysql.connector import errorcode
 import datetime
 
 class dbtemps:
-    print('entering class')
+#    print('entering class')
     def __init__(self):
 #        print('init')
         self.conn = self.create_conn()
@@ -35,6 +35,7 @@ class dbtemps:
             return cnx
 
     def write_temp(self, h, t):
+#        print('writing')
         try:
             sql= """INSERT INTO temps (idloc, temp, humidity, time, idunit, iddev) VALUES('{}', '{}', '{}', '{}', '7', '2');""".format(13, t, h, datetime.datetime.now())
             print(sql)

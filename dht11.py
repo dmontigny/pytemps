@@ -18,8 +18,9 @@ class DHT11Result:
 
     def __init__(self, error_code, temperature, humidity):
         self.error_code = error_code
-        self.temperature = temperature
         self.humidity = humidity
+        self.temperature = temperature
+#        print(temperature, humidity)
 
     def is_valid(self):
         return self.error_code == DHT11Result.ERR_NO_ERROR
@@ -39,10 +40,10 @@ class DHT11:
         GPIO.setup(self.__pin, GPIO.OUT)
 
         # send initial high
-        self.__send_and_sleep(GPIO.HIGH, 0.05) #0.05
+        self.__send_and_sleep(GPIO.HIGH, 0.05)
 
         # pull down to low
-        self.__send_and_sleep(GPIO.LOW, 0.02) #0.02
+        self.__send_and_sleep(GPIO.LOW, 0.02)
 
         # change to input using pull up
         GPIO.setup(self.__pin, GPIO.IN, GPIO.PUD_UP)
