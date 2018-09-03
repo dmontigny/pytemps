@@ -41,7 +41,7 @@ class dbtemps:
 
     def get_unit_id(self):
         sql= """SELECT unit, idunit FROM temps.units WHERE unit='{}';""".format(self.pc)
-        print(sql)
+#        print(sql)
         units = {}
 #        print(self.cur.execute(sql))
         self.cur.execute(sql)
@@ -49,7 +49,6 @@ class dbtemps:
 
     def write_temp(self, h, t):
 #        print('writing')
-        print(self.get_unit_id())
         try:
             sql= """INSERT INTO temps (idloc, temp, humidity, time, idunit, iddev) VALUES('{}', '{}', '{}', '{}', '{}', '2');""".format(13, t, h, datetime.datetime.now(), self.get_unit_id())
             print(sql)
